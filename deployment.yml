@@ -1,0 +1,22 @@
+apiVersion: apps/v1    # Specifies the API version of the Kubernetes deployment API
+kind: Deployment       # Specifies the type of Kubernetes resource to create, in this case, a deployment
+metadata:              # Contains metadata for the deployment resource
+  name: springboot-mongo-app   # Specifies the name of the deployment resource
+  labels:              # Labels to associate with the deployment resource
+    app: springboot-mongo-app  # A label with key 'app' and value 'springboot-mongo-app'
+spec:                  # Specifies the deployment's specification
+  replicas: 2          # The desired number of replicas of the application to be deployed
+  selector:            # Specifies the label selector to identify which Pods belong to this deployment
+    matchLabels:       # Specifies a set of labels used by the selector
+      app: springboot-mongo-app  # A label with key 'app' and value 'springboot-mongo-app'
+  template:            # Specifies the Pod template used to create new Pods for the deployment
+    metadata:
+      labels:
+        app: springboot-mongo-app  # A label with key 'app' and value 'springboot-mongo-app' to be applied to the Pod
+    spec:               # Specifies the specification of the Pods to be created
+      containers:       # Specifies the containers to be created and run in the Pods
+        - name: springboot-mongo-app   # Specifies the name of the container
+          image: springbootaksrp.azurecr.io/springbootaks:1.0.0   # Specifies the Docker image used to create the container
+          imagePullPolicy: Always  # Specifies when to pull the image, 'Always' in this case
+          ports:          # Specifies the ports to expose on the container
+            - containerPort: 8080  # Specifies the port number to expose on the container
